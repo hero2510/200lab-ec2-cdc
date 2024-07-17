@@ -1,0 +1,6 @@
+locals {
+  students = [
+    "TungVo",
+    "DuyPhan"
+  ]
+}
