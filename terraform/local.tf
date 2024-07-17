@@ -1,6 +1,5 @@
 locals {
   students = [
-    "TungVo",
-    "DuyPhan"
+    "TungVo"
   ]
 }

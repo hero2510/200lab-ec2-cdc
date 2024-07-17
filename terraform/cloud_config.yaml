@@ -4,7 +4,7 @@ runcmd:
   - curl -fsSL https://get.docker.com/ | sh
   - sudo usermod -aG docker ubuntu
   - cd /home/ubuntu
-  - git clone https://github.com/hero2510/200lab-ec2-cdc.git && cd ec2-cdc
+  - git clone https://github.com/hero2510/200lab-ec2-cdc.git && cd 200lab-ec2-cdc
   - docker compose -f docker-compose-server.yaml down
   - docker network create crawler
   - docker compose -f docker-compose-server.yaml up -d
