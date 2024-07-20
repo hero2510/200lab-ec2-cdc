@@ -15,8 +15,14 @@ runcmd:
   - sleep 60
   - docker run --env-file=./migrate/.env.container --net crawler hero2510/migrate-app /app/run init
   - docker run --env-file=./migrate/.env.container --net crawler hero2510/migrate-app /app/run migrate
-  - curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/postgres-source.json   - 
+  - curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/postgres-source.json
   - curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/elasticsearch-sink.json  
+  - |
+    PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+    sed -i 's|localhost|'${PUBLIC_IP}'|g' ./website/.env
+    docker build ./website -t hero2510/crawler-website
+    docker run --net crawler -p 3100:80 hero2510/crawler-website
+
 packages:
   - git
   - curl

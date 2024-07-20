@@ -1,16 +1,18 @@
 version: "3.8"
 
 services:
-  website:
-    image: hero2510/crawler-website
-    container_name: website
-    ports:
-      - "3100:80"
-    networks:
-      - crawler
+  # website:
+  #   image: hero2510/crawler-website
+  #   container_name: website
+  #   ports:
+  #     - "3100:80"
+  #   networks:
+  #     - crawler
   api:
     image: hero2510/crawler-api
     container_name: api
+    env_file:
+      - ./configs/.env.api
     ports:
       - "3000:3000"
     networks:
