@@ -15,13 +15,14 @@ runcmd:
   - sleep 60
   - docker run --env-file=./migrate/.env.container --net crawler hero2510/migrate-app /app/run init
   - docker run --env-file=./migrate/.env.container --net crawler hero2510/migrate-app /app/run migrate
-  - curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/postgres-source.json
-  - curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/elasticsearch-sink.json  
+  - docker compose -f docker-compose-server.yaml up -d consumer
+  - echo "Installing postgres connector" && curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/postgres-source.json
+  - echo "Installing elasticsearch connector" && curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @configs/connector/elasticsearch-sink.json  
   - |
     PUBLIC_IP=$(curl -s http://checkip.amazonaws.com)
     sed -i 's|localhost|'$${PUBLIC_IP}'|g' ./website/.env
     # docker build ./website -t hero2510/crawler-website
-    # docker run --net crawler -p 3100:80 hero2510/crawler-website
+    # docker run --net crawler --name website -p 3100:80 -d hero2510/crawler-website
 
 packages:
   - git
