@@ -4,6 +4,6 @@
     "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
     "topics": "crawler-posts",
     "key.ignore": "true",
-    "connection.url": "http://elasticsearch:9200"
+    "connection.url": "http://elasticsearch-headless:9200"
   }
 }

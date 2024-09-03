@@ -1,6 +1,6 @@
 locals {
   students = [
-    "TungVo",
-    "Runner"
+    "Node-1",
+    "Node-2"
   ]
 }
